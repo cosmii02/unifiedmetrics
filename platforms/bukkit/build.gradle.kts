@@ -16,7 +16,7 @@
  */
 
 plugins {
-    id("com.github.johnrengelman.shadow")
+    id("com.gradleup.shadow")
     id("io.papermc.paperweight.userdev") version "2.0.0-beta.8"
 }
 

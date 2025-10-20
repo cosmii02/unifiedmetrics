@@ -1,10 +1,7 @@
-.idea/*
-!.idea/copyright
+build/
+.gradle/
+*.jar
+*.log
+out/
+.idea/
 *.iml
-*.ipr
-
-.gradle
-build
-**/run*/
-.kotlin
-.vscode/
