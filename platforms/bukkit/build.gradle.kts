@@ -16,19 +16,16 @@
  */
 
 plugins {
-    id("com.gradleup.shadow")
-    id("io.papermc.paperweight.userdev") version "2.0.0-beta.8"
+    id("com.github.johnrengelman.shadow")
 }
 
 repositories {
-    maven("https://papermc.io/repo/repository/maven-public/")
-    mavenLocal()
+    maven("https://repo.papermc.io/repository/maven-public/")
 }
 
 dependencies {
     api(project(":unifiedmetrics-core"))
-    // compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
-    paperweight.devBundle("dev.folia", "1.21.4-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper", "paper-api", "1.21.8-R0.1-SNAPSHOT")
 }
 
 tasks {
@@ -52,8 +49,4 @@ tasks {
             )
         }
     }
-}
-
-java {
-    disableAutoTargetJvm()
 }

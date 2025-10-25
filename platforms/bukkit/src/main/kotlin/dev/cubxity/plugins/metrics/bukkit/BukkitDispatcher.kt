@@ -17,7 +17,6 @@
 
 package dev.cubxity.plugins.metrics.bukkit
 
-import io.papermc.paper.threadedregions.RegionizedServer
 import kotlinx.coroutines.*
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
@@ -47,16 +46,5 @@ class BukkitDispatcher(private val plugin: JavaPlugin) : CoroutineDispatcher(), 
         } else {
             plugin.server.scheduler.runTask(plugin, block)
         }
-    }
-}
-
-@OptIn(InternalCoroutinesApi::class)
-class FoliaDispatcher : CoroutineDispatcher(), Delay {
-    override fun scheduleResumeAfterDelay(timeMillis: Long, continuation: CancellableContinuation<Unit>) {
-        TODO("Not yet implemented")
-    }
-
-    override fun dispatch(context: CoroutineContext, block: Runnable) {
-        RegionizedServer.getInstance().addTask(block)
     }
 }

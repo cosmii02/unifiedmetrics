@@ -16,7 +16,7 @@
  */
 
 plugins {
-    id("com.gradleup.shadow")
+    id("com.github.johnrengelman.shadow")
 }
 
 repositories {

@@ -16,7 +16,7 @@
  */
 
 plugins {
-    id("com.gradleup.shadow")
+    id("com.github.johnrengelman.shadow")
 }
 
 repositories {
@@ -27,7 +27,7 @@ repositories {
 dependencies {
     api(project(":unifiedmetrics-core"))
 
-    compileOnly("net.md-5", "bungeecord-api", "1.21-R0.3")
+    compileOnly("net.md-5", "bungeecord-api", "1.21-R0.3-SNAPSHOT")
 }
 
 tasks {

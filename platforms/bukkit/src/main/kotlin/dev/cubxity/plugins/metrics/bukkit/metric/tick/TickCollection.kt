@@ -23,13 +23,14 @@ import dev.cubxity.plugins.metrics.api.metric.collector.Histogram
 import dev.cubxity.plugins.metrics.api.metric.store.VolatileDoubleStore
 import dev.cubxity.plugins.metrics.api.metric.store.VolatileLongStore
 import dev.cubxity.plugins.metrics.bukkit.bootstrap.UnifiedMetricsBukkitBootstrap
-import dev.cubxity.plugins.metrics.bukkit.util.BukkitPlatform
+import dev.cubxity.plugins.metrics.bukkit.util.classExists
 import dev.cubxity.plugins.metrics.common.metric.Metrics
 
 class TickCollection(bootstrap: UnifiedMetricsBukkitBootstrap) : CollectorCollection {
-    private val reporter = when (BukkitPlatform.current) {
-        BukkitPlatform.Folia, BukkitPlatform.Paper -> PaperTickReporter(this, bootstrap)
-        else -> BukkitTickReporter(this, bootstrap)
+    private val reporter = if (classExists("com.destroystokyo.paper.event.server.ServerTickStartEvent")) {
+        PaperTickReporter(this, bootstrap)
+    } else {
+        BukkitTickReporter(this, bootstrap)
     }
 
     // The callback is called from a single thread

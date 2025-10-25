@@ -16,7 +16,7 @@
  */
 
 plugins {
-    id("com.gradleup.shadow")
+    id("com.github.johnrengelman.shadow")
 }
 
 repositories {
@@ -42,10 +42,10 @@ tasks {
         relocate("io.prometheus", "dev.cubxity.plugins.metrics.libs.io.prometheus")
     }
     compileKotlin {
-        kotlinOptions.jvmTarget = "21"
+        kotlinOptions.jvmTarget = "17"
     }
     compileTestKotlin {
-        kotlinOptions.jvmTarget = "21"
+        kotlinOptions.jvmTarget = "17"
     }
     processResources {
         filesMatching("extension.json") {
@@ -57,5 +57,5 @@ tasks {
 }
 
 java {
-    targetCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_17
 }

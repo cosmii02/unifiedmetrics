@@ -1,7 +1,9 @@
-build/
-.gradle/
-*.jar
-*.log
-out/
-.idea/
+.idea/*
+!.idea/copyright
 *.iml
+*.ipr
+
+.gradle
+build
+**/run*/
+.kotlin
