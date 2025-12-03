@@ -53,14 +53,33 @@ class UnifiedMetricsFabricBootstrap : DedicatedServerModInitializer, UnifiedMetr
 
     override val dispatcher: CoroutineDispatcher = CurrentThreadDispatcher
 
+    private val previousExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
+
+    init {
+        Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
+            logger.severe("UnifiedMetrics caught an unhandled exception on thread ${thread.name}", throwable)
+            previousExceptionHandler?.uncaughtException(thread, throwable)
+        }
+    }
+
     override fun onInitializeServer() {
         ServerLifecycleEvents.SERVER_STARTED.register {
             server = it
-            plugin.enable()
+            runCatching {
+                plugin.enable()
+                logger.info("UnifiedMetrics Fabric plugin enabled for ${serverBrand}.")
+            }.onFailure { error ->
+                logger.severe("UnifiedMetrics failed to enable on Fabric.", error)
+            }
         }
 
         ServerLifecycleEvents.SERVER_STOPPING.register {
-            plugin.disable()
+            runCatching {
+                plugin.disable()
+                logger.info("UnifiedMetrics Fabric plugin disabled cleanly.")
+            }.onFailure { error ->
+                logger.severe("UnifiedMetrics encountered an error while shutting down.", error)
+            }
         }
     }
 }

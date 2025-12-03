@@ -24,21 +24,36 @@ import dev.cubxity.plugins.metrics.prometheus.collector.UnifiedMetricsCollector
 import dev.cubxity.plugins.metrics.prometheus.config.AuthenticationScheme
 import io.prometheus.client.CollectorRegistry
 import io.prometheus.client.exporter.HTTPServer
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
+import java.util.concurrent.atomic.AtomicInteger
 
 class PrometheusHTTPExporter(
     private val api: UnifiedMetrics,
     private val driver: PrometheusMetricsDriver
 ) : PrometheusExporter {
     private var server: HTTPServer? = null
+    private var executor: ExecutorService? = null
+    private val pluginClassLoader = UnifiedMetricsCollector::class.java.classLoader
+    private val threadCounter = AtomicInteger()
 
     override fun initialize() {
         val registry = CollectorRegistry()
         registry.register(UnifiedMetricsCollector(api))
 
-        server = HTTPServer.Builder()
+        val service = Executors.newCachedThreadPool { task ->
+            Thread(task, "prometheus-http-${driver.config.http.port}-${threadCounter.incrementAndGet()}").apply {
+                isDaemon = true
+                contextClassLoader = pluginClassLoader
+            }
+        }
+        executor = service
+
+        val httpServer = HTTPServer.Builder()
             .withHostname(driver.config.http.host)
             .withPort(driver.config.http.port)
             .withRegistry(registry)
+            .withExecutorService(service)
             .apply {
                 with(driver.config.http.authentication) {
                     if (scheme == AuthenticationScheme.Basic) {
@@ -47,11 +62,15 @@ class PrometheusHTTPExporter(
                 }
             }
             .build()
+
+        server = httpServer
     }
 
     override fun close() {
         server?.close()
         server = null
+        executor?.shutdownNow()
+        executor = null
     }
 
     private class Authenticator(

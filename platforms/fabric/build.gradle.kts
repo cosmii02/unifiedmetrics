@@ -1,3 +1,5 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import net.fabricmc.loom.task.RemapJarTask
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 /*
@@ -19,6 +21,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     id("fabric-loom")
+    id("com.github.johnrengelman.shadow")
 }
 
 val transitiveInclude: Configuration by configurations.creating {
@@ -29,25 +32,44 @@ val transitiveInclude: Configuration by configurations.creating {
 
 dependencies {
     // https://fabricmc.net/versions.html
-    minecraft("com.mojang:minecraft:1.21.1")
-    mappings("net.fabricmc:yarn:1.21.1+build.3:v2")
+    minecraft("com.mojang:minecraft:1.20.1")
+    mappings("net.fabricmc:yarn:1.20.1+build.10:v2")
     modImplementation("net.fabricmc:fabric-loader:0.16.13")
 
-    modImplementation("net.fabricmc.fabric-api:fabric-api:0.105.0+1.21.1")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:0.92.2+1.20.1")
     modImplementation("net.fabricmc:fabric-language-kotlin:1.13.2+kotlin.2.1.20")
 
     api(project(":unifiedmetrics-core"))
 
+    transitiveInclude(project(":unifiedmetrics-api"))
+    transitiveInclude(project(":unifiedmetrics-common"))
     transitiveInclude(project(":unifiedmetrics-core"))
+    transitiveInclude(project(":unifiedmetrics-driver-influx"))
+    transitiveInclude(project(":unifiedmetrics-driver-prometheus"))
+    transitiveInclude("com.charleskorn.kaml:kaml:0.76.0")
+    transitiveInclude("it.krzeminski:snakeyaml-engine-kmp:3.1.1")
+    transitiveInclude("net.thauvin.erik.urlencoder:urlencoder-lib-jvm:1.6.0")
+    transitiveInclude("com.squareup.okio:okio-jvm:3.11.0")
+    transitiveInclude("org.jetbrains.kotlin:kotlin-stdlib:2.1.20")
+    transitiveInclude("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
+    transitiveInclude("io.prometheus:simpleclient:0.16.0")
+    transitiveInclude("io.prometheus:simpleclient_common:0.16.0")
+    transitiveInclude("io.prometheus:simpleclient_tracer_common:0.16.0")
+    transitiveInclude("io.prometheus:simpleclient_tracer_otel:0.16.0")
+    transitiveInclude("io.prometheus:simpleclient_tracer_otel_agent:0.16.0")
+    transitiveInclude("io.prometheus:simpleclient_httpserver:0.16.0")
+    transitiveInclude("io.prometheus:simpleclient_pushgateway:0.16.0")
+}
 
-    transitiveInclude.incoming.artifacts.forEach {
-        val dependency: Any = when (val component = it.id.componentIdentifier) {
-            is ProjectComponentIdentifier -> project(component.projectPath)
-            else -> component.toString()
-        }
+tasks.named<ShadowJar>("shadowJar") {
+    configurations = listOf(transitiveInclude)
+    archiveClassifier.set("dev-shadow")
+}
 
-        include(dependency)
-    }
+tasks.named<RemapJarTask>("remapJar") {
+    dependsOn("shadowJar")
+    inputFile.set(tasks.named<ShadowJar>("shadowJar").flatMap { it.archiveFile })
+    archiveClassifier.set(null as String?)
 }
 
 loom {
