@@ -1,0 +1,36 @@
+{
+    "schemaVersion": 1,
+    "id": "unifiedmetrics",
+    "version": "${version}",
+
+    "name": "UnifiedMetrics",
+    "description": "Fully-featured metrics plugin for Minecraft servers",
+    "authors": [
+        "Cubxity"
+    ],
+    "contact": {
+        "homepage": "https://github.com/Cubxity/UnifiedMetrics/",
+        "sources": "https://github.com/Cubxity/UnifiedMetrics/",
+        "issues": "https://github.com/Cubxity/UnifiedMetrics/issues"
+    },
+
+    "license": "LGPL-3.0",
+
+    "environment": "server",
+    "entrypoints": {
+        "server": [
+            "dev.cubxity.plugins.metrics.fabric.bootstrap.UnifiedMetricsFabricBootstrap"
+        ]
+    },
+    "mixins": [
+        "unifiedmetrics.mixins.json"
+    ],
+
+    "depends": {
+        "fabricloader": ">=0.16.0",
+        "fabric": "*",
+        "minecraft": ">=1.20.1",
+        "fabric-language-kotlin": ">=1.13.0+kotlin.2.1.0",
+        "java": ">=21"
+    }
+}
