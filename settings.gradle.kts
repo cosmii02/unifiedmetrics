@@ -31,9 +31,11 @@ include(modulePrefix + platformPrefix + "velocity")
 // Bungee build disabled
 // include(modulePrefix + platformPrefix + "bungee")
 include(modulePrefix + platformPrefix + "fabric")
+include(modulePrefix + platformPrefix + "neoforge")
 
 include(modulePrefix + driverPrefix + "influx")
 include(modulePrefix + driverPrefix + "prometheus")
+include(modulePrefix + driverPrefix + "prometheus-exporters")
 
 project(modulePrefix + "api").projectDir = File(rootDir, "api")
 project(modulePrefix + "common").projectDir = File(rootDir, "common")
@@ -46,10 +48,12 @@ project(modulePrefix + platformPrefix + "velocity").projectDir = File(platformsD
 // Bungee build disabled
 // project(modulePrefix + platformPrefix + "bungee").projectDir = File(platformsDir, "bungee")
 project(modulePrefix + platformPrefix + "fabric").projectDir = File(platformsDir, "fabric")
+project(modulePrefix + platformPrefix + "neoforge").projectDir = File(platformsDir, "neoforge")
 
 val driversDir = File(rootDir, "drivers")
 project(modulePrefix + driverPrefix + "influx").projectDir = File(driversDir, "influx")
 project(modulePrefix + driverPrefix + "prometheus").projectDir = File(driversDir, "prometheus")
+project(modulePrefix + driverPrefix + "prometheus-exporters").projectDir = File(driversDir, "prometheus-exporters")
 
 pluginManagement {
     repositories {
@@ -57,6 +61,10 @@ pluginManagement {
         maven {
             name = "Fabric"
             url = uri("https://maven.fabricmc.net/")
+        }
+        maven {
+            name = "NeoForge"
+            url = uri("https://maven.neoforged.net/releases")
         }
     }
 }

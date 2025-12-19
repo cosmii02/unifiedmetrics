@@ -15,16 +15,28 @@
  *     along with UnifiedMetrics.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package dev.cubxity.plugins.metrics.api.platform
+import org.gradle.api.artifacts.Configuration
+import org.gradle.api.file.DuplicatesStrategy
+import org.gradle.api.tasks.bundling.Jar
 
-sealed class PlatformType(val name: String) {
-    // Server implementations
-    object Bukkit : PlatformType("Bukkit")
-    object Minestom : PlatformType("Minestom")
-    object Fabric : PlatformType("Fabric")
-    object NeoForge : PlatformType("NeoForge")
+val prometheusExporters: Configuration by configurations.creating
 
-    // Proxies
-    object Velocity : PlatformType("Velocity")
-    object BungeeCord : PlatformType("BungeeCord")
+dependencies {
+    prometheusExporters("io.prometheus:simpleclient_httpserver:0.16.0") {
+        isTransitive = false
+    }
+    prometheusExporters("io.prometheus:simpleclient_pushgateway:0.16.0") {
+        isTransitive = false
+    }
+}
+
+tasks.named<Jar>("jar") {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from({
+        prometheusExporters.files.map { dependency ->
+            if (dependency.isDirectory) dependency else zipTree(dependency)
+        }
+    })
+    exclude("module-info.class")
+    exclude("META-INF/*.SF", "META-INF/*.DSA", "META-INF/*.RSA")
 }

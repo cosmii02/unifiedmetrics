@@ -15,16 +15,12 @@
  *     along with UnifiedMetrics.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package dev.cubxity.plugins.metrics.api.platform
+package dev.cubxity.plugins.metrics.neoforge.metrics.world
 
-sealed class PlatformType(val name: String) {
-    // Server implementations
-    object Bukkit : PlatformType("Bukkit")
-    object Minestom : PlatformType("Minestom")
-    object Fabric : PlatformType("Fabric")
-    object NeoForge : PlatformType("NeoForge")
+import dev.cubxity.plugins.metrics.api.metric.collector.Collector
+import dev.cubxity.plugins.metrics.api.metric.collector.CollectorCollection
+import dev.cubxity.plugins.metrics.neoforge.bootstrap.UnifiedMetricsNeoForgeBootstrap
 
-    // Proxies
-    object Velocity : PlatformType("Velocity")
-    object BungeeCord : PlatformType("BungeeCord")
+class WorldCollection(bootstrap: UnifiedMetricsNeoForgeBootstrap) : CollectorCollection {
+    override val collectors: List<Collector> = listOf(WorldCollector(bootstrap))
 }

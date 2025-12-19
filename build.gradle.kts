@@ -26,6 +26,7 @@ plugins {
 
     // The fabric-loom plugin must be defined in the root project for it to function properly.
     id("fabric-loom") version "1.10.5" apply false
+    id("net.neoforged.moddev") version "1.0.21" apply false
 }
 
 allprojects {

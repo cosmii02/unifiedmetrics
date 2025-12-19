@@ -1,0 +1,172 @@
+{
+  "jars": [
+    {
+      "identifier": {
+        "group": "com.influxdb",
+        "artifact": "influxdb-client-java"
+      },
+      "version": {
+        "range": "[7.2.0,)",
+        "artifactVersion": "7.2.0"
+      },
+      "path": "META-INF/jarjar/influxdb-client-java-7.2.0.jar",
+      "isObfuscated": false
+    },
+    {
+      "identifier": {
+        "group": "com.squareup.okio",
+        "artifact": "okio-jvm"
+      },
+      "version": {
+        "range": "[3.11.0,)",
+        "artifactVersion": "3.11.0"
+      },
+      "path": "META-INF/jarjar/okio-jvm-3.11.0.jar",
+      "isObfuscated": false
+    },
+    {
+      "identifier": {
+        "group": "dev.cubxity.plugins",
+        "artifact": "unifiedmetrics-api"
+      },
+      "version": {
+        "range": "[0.3.11-SNAPSHOT,)",
+        "artifactVersion": "0.3.11-SNAPSHOT"
+      },
+      "path": "META-INF/jarjar/dev.cubxity.plugins.unifiedmetrics-api-0.3.11-SNAPSHOT.jar",
+      "isObfuscated": false
+    },
+    {
+      "identifier": {
+        "group": "dev.cubxity.plugins",
+        "artifact": "unifiedmetrics-common"
+      },
+      "version": {
+        "range": "[0.3.11-SNAPSHOT,)",
+        "artifactVersion": "0.3.11-SNAPSHOT"
+      },
+      "path": "META-INF/jarjar/dev.cubxity.plugins.unifiedmetrics-common-0.3.11-SNAPSHOT.jar",
+      "isObfuscated": false
+    },
+    {
+      "identifier": {
+        "group": "dev.cubxity.plugins",
+        "artifact": "unifiedmetrics-core"
+      },
+      "version": {
+        "range": "[0.3.11-SNAPSHOT,)",
+        "artifactVersion": "0.3.11-SNAPSHOT"
+      },
+      "path": "META-INF/jarjar/dev.cubxity.plugins.unifiedmetrics-core-0.3.11-SNAPSHOT.jar",
+      "isObfuscated": false
+    },
+    {
+      "identifier": {
+        "group": "dev.cubxity.plugins",
+        "artifact": "unifiedmetrics-driver-influx"
+      },
+      "version": {
+        "range": "[0.3.11-SNAPSHOT,)",
+        "artifactVersion": "0.3.11-SNAPSHOT"
+      },
+      "path": "META-INF/jarjar/dev.cubxity.plugins.unifiedmetrics-driver-influx-0.3.11-SNAPSHOT.jar",
+      "isObfuscated": false
+    },
+    {
+      "identifier": {
+        "group": "dev.cubxity.plugins",
+        "artifact": "unifiedmetrics-driver-prometheus"
+      },
+      "version": {
+        "range": "[0.3.11-SNAPSHOT,)",
+        "artifactVersion": "0.3.11-SNAPSHOT"
+      },
+      "path": "META-INF/jarjar/dev.cubxity.plugins.unifiedmetrics-driver-prometheus-0.3.11-SNAPSHOT.jar",
+      "isObfuscated": false
+    },
+    {
+      "identifier": {
+        "group": "io.prometheus",
+        "artifact": "simpleclient"
+      },
+      "version": {
+        "range": "[0.16.0,)",
+        "artifactVersion": "0.16.0"
+      },
+      "path": "META-INF/jarjar/simpleclient-0.16.0.jar",
+      "isObfuscated": false
+    },
+    {
+      "identifier": {
+        "group": "io.prometheus",
+        "artifact": "simpleclient_common"
+      },
+      "version": {
+        "range": "[0.16.0,)",
+        "artifactVersion": "0.16.0"
+      },
+      "path": "META-INF/jarjar/simpleclient_common-0.16.0.jar",
+      "isObfuscated": false
+    },
+    {
+      "identifier": {
+        "group": "io.prometheus",
+        "artifact": "simpleclient_tracer_common"
+      },
+      "version": {
+        "range": "[0.16.0,)",
+        "artifactVersion": "0.16.0"
+      },
+      "path": "META-INF/jarjar/simpleclient_tracer_common-0.16.0.jar",
+      "isObfuscated": false
+    },
+    {
+      "identifier": {
+        "group": "io.prometheus",
+        "artifact": "simpleclient_tracer_otel"
+      },
+      "version": {
+        "range": "[0.16.0,)",
+        "artifactVersion": "0.16.0"
+      },
+      "path": "META-INF/jarjar/simpleclient_tracer_otel-0.16.0.jar",
+      "isObfuscated": false
+    },
+    {
+      "identifier": {
+        "group": "io.prometheus",
+        "artifact": "simpleclient_tracer_otel_agent"
+      },
+      "version": {
+        "range": "[0.16.0,)",
+        "artifactVersion": "0.16.0"
+      },
+      "path": "META-INF/jarjar/simpleclient_tracer_otel_agent-0.16.0.jar",
+      "isObfuscated": false
+    },
+    {
+      "identifier": {
+        "group": "net.thauvin.erik.urlencoder",
+        "artifact": "urlencoder-lib-jvm"
+      },
+      "version": {
+        "range": "[1.6.0,)",
+        "artifactVersion": "1.6.0"
+      },
+      "path": "META-INF/jarjar/urlencoder-lib-jvm-1.6.0.jar",
+      "isObfuscated": false
+    },
+    {
+      "identifier": {
+        "group": "org.jetbrains.kotlin",
+        "artifact": "kotlin-stdlib"
+      },
+      "version": {
+        "range": "[2.1.20,)",
+        "artifactVersion": "2.1.20"
+      },
+      "path": "META-INF/jarjar/kotlin-stdlib-2.1.20.jar",
+      "isObfuscated": false
+    }
+  ]
+}
